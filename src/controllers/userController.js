@@ -15,23 +15,15 @@ exports.findUsers = catchAsync(async (req, res, next) => {
   });
 });
 //modifica un reguistro en la tabla users
-exports.updateUser = async (req, res) => {
-  try {
-    const { name, email } = req.body;
-    const { user } = req;
-    await user.update({ name, email });
-    return res.status(200).json({
-      status: 'success',
-      message: 'update users 👍',
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      status: 'fail',
-      message: 'something went very wrong! 🤞',
-    });
-  }
-};
+exports.updateUser = catchAsync(async (req, res) => {
+  const { name, email } = req.body;
+  const { user } = req;
+  await user.update({ name, email });
+  return res.status(200).json({
+    status: 'success',
+    message: 'update users 👍',
+  });
+});
 
 //devuelve un registro de la tabla users
 exports.findUser = catchAsync(async (req, res) => {
