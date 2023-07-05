@@ -1,19 +1,35 @@
 const express = require('express');
 
 const repairController = require('./../controllers/repairsController');
+const repairsMiddleware = require('./../middlewares/repairsMiddleware');
+const autchMiddleware = require('./../middlewares/authMiddleware');
 
 const router = express.Router();
 
+router.use(autchMiddleware.protect);
+
 router
   .route('/')
-  .get(repairController.findRepairs)
-  .post(repairController.addRepair);
+  .get(autchMiddleware.restrictTo('employee'), repairController.findRepairs)
+  .post(autchMiddleware.restrictTo('employee'), repairController.addRepair);
 
 router
   .route('/:id')
-  .get(repairController.findRepair)
-  .patch(repairController.updateRepair)
-  .delete(repairController.deleteRepair);
+  .get(
+    repairsMiddleware.repairsMiddleware,
+    autchMiddleware.restrictTo('employee'),
+    repairController.findRepair
+  )
+  .patch(
+    repairsMiddleware.repairsMiddleware,
+    autchMiddleware.restrictTo('employee'),
+    repairController.updateRepair
+  )
+  .delete(
+    repairsMiddleware.repairsMiddleware,
+    autchMiddleware.restrictTo('employee'),
+    repairController.deleteRepair
+  );
 
 //router.get("/:id", findUser);
 //router.get("/", findUsers);
