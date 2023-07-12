@@ -1,6 +1,6 @@
 const { DataTypes } = require('sequelize');
-const { db } = require('./../database/config');
-const Repairs = db.define('repairs', {
+const { db } = require('../database/config');
+const Meals = db.define('meals', {
   id: {
     primaryKey: true,
     autoIncrement: true,
@@ -8,26 +8,22 @@ const Repairs = db.define('repairs', {
     type: DataTypes.INTEGER,
   },
 
-  date: {
-    type: DataTypes.DATE,
-    allowNull: false,
-  },
-  motorsNumber: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  description: {
+  price: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  userId: {
+  restauranId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM('pending', 'completed', 'cancelled'),
+    type: DataTypes.BOOLEAN,
     allowNull: false,
-    defaultValue: 'pending',
+    defaultValue: true,
   },
 });
-module.exports = Repairs;
+module.exports = Meals;
