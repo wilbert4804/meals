@@ -21,10 +21,10 @@ exports.updateMeal = catchAsync(async (req, res, next) => {
   //la parte logica
   const { meals } = req;
   const { name, price } = req.body;
-  await meals.update({ name, price });
+  const meal = await meals.update({ name, price });
   return res.status(200).json({
     status: 'success',
-    meals,
+    meal,
   });
 });
 //agrega una nueva reparacion

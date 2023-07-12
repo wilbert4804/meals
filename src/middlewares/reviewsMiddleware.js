@@ -1,6 +1,7 @@
 const Reviews = require('../models/reviewsModel');
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
+const User = require('./../models/userModel');
 exports.reviewsMiddleware = catchAsync(async (req, res, next) => {
   const { id } = req.params; //DESTRUCION DE OBJETOS
 
