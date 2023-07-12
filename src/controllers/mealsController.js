@@ -1,5 +1,4 @@
 const Meals = require('../models/mealsModel');
-const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 
 //selecciona todas las reparaciones
@@ -21,17 +20,16 @@ exports.updateMeal = catchAsync(async (req, res, next) => {
   //la parte logica
   const { meals } = req;
   const { name, price } = req.body;
-  const meal = await meals.update({ name, price });
+  await order.update({ name, price });
   return res.status(200).json({
     status: 'success',
-    meal,
+    meals,
   });
 });
 //agrega una nueva reparacion
 exports.addMeal = catchAsync(async (req, res, next) => {
   const { restauranId } = req.params;
   const { name, price } = req.body;
-  const { id } = req.sessionUser;
   const meals = await Meals.create({
     name,
     price,

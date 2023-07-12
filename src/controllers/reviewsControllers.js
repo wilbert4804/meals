@@ -7,10 +7,10 @@ exports.updateReview = catchAsync(async (req, res, next) => {
   //la parte logica
   const { reviews } = req;
   const { restaurantid } = req.params;
-  const { id } = req.sessionUser;
+  const userId = req.sessionUser.id;
   const { comment } = req.body;
 
-  await reviews.update({ comment, rating, userId: id, restaurantid });
+  await reviews.update({ comment, restaurantid, userId });
 
   return res.status(200).json({
     status: 'success',
@@ -34,16 +34,7 @@ exports.addReview = catchAsync(async (req, res, next) => {
   });
 });
 //selecciona una reparacion
-exports.findReview = catchAsync(async (req, res, next) => {
-  // nos traemos el id
 
-  const { reviews } = req;
-
-  return res.status(200).json({
-    status: 'success',
-    reviews,
-  });
-});
 //elimina una reparacion
 exports.deleteReview = catchAsync(async (req, res, next) => {
   // traernos el id de los parametros
